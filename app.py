@@ -1,11 +1,13 @@
+import numpy as np
 import streamlit as st
+import pickle
 
-a = st.number_input('Tham số a')
-b = st.number_input('Tham số b')
+model=pickle.load(open('model.pickle','rb'))
 
-if st.button('Giải'):
-  if a != 0:
-    st.write("Phương trình có 1 nghiệm", (-b)/a)
-  else:
-    st.write("Phương trình vô nghiệm")
-
+st.title("Revenue Prediction")
+X_new=st.number_input('Input Temperature')
+if st.button('Predict'):
+  X_new=np.array(X_new).reshape(-1,1)
+  y_new=model.predict(X_new)
+  st.caption('Revenue Prediction')
+  st.write(y_new
